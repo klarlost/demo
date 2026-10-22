@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Salong Lumi – Demo av Klarlöst</title>
+<style>
+:root{--p:#b5838d;--d:#3d2c33;--l:#fbf3f1;--a:#e5989b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--d);background:var(--l)}
+.banner{background:var(--d);color:#fff;text-align:center;font-size:13px;padding:6px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 6%;background:#fff;position:sticky;top:0;z-index:5;box-shadow:0 1px 8px #0001}
+.logo{font-family:Georgia,serif;font-size:26px;letter-spacing:2px}.logo span{color:var(--p)}
+nav button{background:none;border:0;font-size:15px;padding:8px 12px;cursor:pointer;border-radius:20px;color:var(--d)}
+nav button.on{background:var(--p);color:#fff}
+.hero{padding:70px 6%;background:linear-gradient(135deg,#f6d7d3,#fbf3f1 60%,#ead2db);text-align:center}
+.hero h1{font-family:Georgia,serif;font-size:clamp(32px,6vw,54px);margin:0 0 10px}
+.hero p{font-size:18px;max-width:560px;margin:0 auto 24px}
+.btn{background:var(--p);color:#fff;border:0;padding:12px 24px;border-radius:30px;font-size:16px;cursor:pointer}
+section{padding:40px 6%}h2{font-family:Georgia,serif}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px #0000000d}
+.card table{width:100%;border-collapse:collapse;font-size:15px}.card td{padding:5px 0;border-bottom:1px dashed #eee}.card td:last-child{text-align:right;white-space:nowrap}
+footer{text-align:center;padding:24px;font-size:13px;color:#8a7a80}
+.hide{display:none}
+/* reminders */
+.phone{background:#fff;border-radius:24px;padding:18px;box-shadow:0 4px 18px #0001}
+.phone h3{margin:0 0 4px}.tag{display:inline-block;font-size:12px;background:#f6d7d3;padding:3px 10px;border-radius:10px;margin-bottom:12px}
+.sms{background:#e9e9eb;border-radius:18px 18px 18px 4px;padding:12px 14px;font-size:15px;line-height:1.4}
+.mail{border:1px solid #eee;border-radius:10px;padding:14px;font-size:14px;line-height:1.5}.mail b{display:block;margin-bottom:6px}
+/* chat */
+#fab{position:fixed;right:20px;bottom:20px;width:62px;height:62px;border-radius:50%;background:var(--p);color:#fff;border:0;font-size:28px;cursor:pointer;box-shadow:0 4px 16px #0003;z-index:20}
+#chat{position:fixed;right:20px;bottom:94px;width:370px;max-width:calc(100vw - 24px);height:560px;max-height:calc(100vh - 120px);background:#fff;border-radius:20px;box-shadow:0 8px 40px #0003;display:flex;flex-direction:column;overflow:hidden;z-index:20}
+#chat.closed{display:none}
+.ch{background:var(--d);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.av{width:36px;height:36px;border-radius:50%;background:var(--a);display:grid;place-items:center}
+.ch small{display:block;opacity:.75;font-size:12px}.ch .x{margin-left:auto;background:none;border:0;color:#fff;font-size:22px;cursor:pointer}
+#msgs{flex:1;overflow-y:auto;padding:14px;background:#faf7f6}
+.m{max-width:85%;padding:10px 13px;border-radius:16px;margin:6px 0;font-size:14.5px;line-height:1.45;white-space:pre-line}
+.bot{background:#fff;border:1px solid #f0e6e4;border-bottom-left-radius:4px}
+.me{background:var(--p);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.qr{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.qr button{border:1px solid var(--p);background:#fff;color:var(--p);border-radius:16px;padding:6px 11px;font-size:13px;cursor:pointer}
+.qr button:hover{background:var(--p);color:#fff}
+.typing{font-size:13px;color:#999;padding:4px 2px}
+form{display:flex;border-top:1px solid #eee}form input{flex:1;border:0;padding:14px;font-size:15px;outline:0}
+form button{border:0;background:none;color:var(--p);font-weight:700;padding:0 16px;cursor:pointer}
+@media(max-width:480px){#chat{right:0;bottom:0;width:100vw;max-width:100vw;height:100vh;max-height:100vh;border-radius:0}nav button{padding:6px 8px;font-size:13px}.logo{font-size:20px}}
+</style></head><body>
+<div class="banner">🎭 Fiktiv demosalong – skapad av Klarlöst för att visa SalongsAssistenten</div>
+<header><div class="logo">Salong <span>Lumi</span></div>
+<nav><button class="on" data-t="site">Hemsidan</button><button data-t="rem">Automatiska påminnelser</button></nav></header>
+
+<main id="site">
+<div class="hero"><h1>Hår, fransar & naglar<br>mitt på Linnégatan</h1>
+<p>En lugn salong i Linnéstaden, Göteborg. Fråga vår digitala assistent om priser, tider och bokning – dygnet runt.</p>
+<button class="btn" onclick="openChat();send('Jag vill boka tid')">Boka tid</button></div>
+<section><h2>Prislista (urval)</h2><div class="grid" id="prices"></div></section>
+<section class="grid">
+<div class="card"><h3>Öppettider</h3><p>Mån–fre 10–19<br>Lördag 10–16<br>Söndag stängt</p></div>
+<div class="card"><h3>Hitta hit</h3><p>Linnégatan 42 (fiktiv adress), 413 08 Göteborg<br>Spårvagn 1, 6: Prinsgatan</p></div>
+<div class="card"><h3>Presentkort</h3><p>Valfritt belopp, gäller 12 månader. Köps i salongen eller via chatten.</p></div>
+</section></main>
+
+<main id="rem" class="hide"><section>
+<h2>Automatiska påminnelser</h2><p>Exempel på meddelanden som SalongsAssistenten skickar automatiskt – med salongens egen ton.</p>
+<div class="grid">
+<div class="phone"><h3>📅 Påminnelse dagen före</h3><span class="tag">SMS · kl 12 dagen innan</span>
+<div class="sms">Hej Emma! 🌸 Påminnelse om din tid för Färg + klippning imorgon tisdag kl 14:00 hos Salong Lumi, Linnégatan 42. Kan du inte komma? Avboka senast 24 h innan via länken: lumi.se/avboka (fiktiv). Välkommen! /Sara</div></div>
+<div class="phone"><h3>✨ Dags att boka igen</h3><span class="tag">SMS · 4 veckor efter fransförlängning</span>
+<div class="sms">Hej Linnea! Dags att fräscha upp fransarna? 😊 Det har gått 4 veckor sedan sist – perfekt läge för en påfyllning. Lediga tider nästa vecka: tis 11:00, tors 16:30. Boka här: lumi.se/boka (fiktiv)</div></div>
+<div class="phone"><h3>✂️ Återbokning efter klippning</h3><span class="tag">Mail · 6 veckor efter besök</span>
+<div class="mail"><b>Ämne: Dags för en ny klippning, Johan?</b>Hej Johan!<br>Det har gått ungefär sex veckor sedan du var hos oss – då brukar frisyren börja tappa formen. Vill du att Ali tar dig igen? Han har lediga tider fredag 15:00 och lördag 11:30.<br><br>👉 Boka din tid<br><br>Varma hälsningar,<br>Salong Lumi</div></div>
+<div class="phone"><h3>⭐ Be om omdöme</h3><span class="tag">SMS · 3 timmar efter besök</span>
+<div class="sms">Tack för besöket idag, Maja! 💕 Hoppas du är nöjd med naglarna. Har du 30 sekunder över? Ett omdöme på Google betyder jättemycket för oss: g.page/lumi (fiktiv)</div></div>
+</div></section></main>
+
+<footer>Demo av Klarlöst · SalongsAssistenten · Salong Lumi är en fiktiv salong</footer>
+
+<button id="fab" onclick="toggleChat()" aria-label="Chatt">💬</button>
+<div id="chat" class="closed">
+<div class="ch"><div class="av">🌸</div><div>Lumi-assistenten<small>Svarar direkt, dygnet runt</small></div><button class="x" onclick="toggleChat()">×</button></div>
+<div id="msgs"></div>
+<form id="f"><input id="in" placeholder="Skriv din fråga…" autocomplete="off"><button>Skicka</button></form>
+</div>
+
+<script>
+const PRICES={"Klippning":[["Damklippning","650 kr"],["Herrklipp","450 kr"],["Barnklipp (under 12)","300 kr"],["Lugg","150 kr"]],
+"Färg & slingor":[["Färg, kort hår","1 150 kr"],["Färg, långt hår","1 550 kr"],["Slingor, folie halvt huvud","1 350 kr"],["Slingor, helt huvud","1 750 kr"],["Balayage","från 1 950 kr"]],
+"Fransar & bryn":[["Fransförlängning, nytt set","1 100 kr"],["Påfyllning (3–4 v)","550 kr"],["Fransplyft","650 kr"],["Brynplock + färg","350 kr"]],
+"Naglar":[["Gellack händer","495 kr"],["Gelénaglar, nytt set","795 kr"],["Påfyllning gelé","595 kr"],["Manikyr","450 kr"]]};
+const pg=document.getElementById('prices');
+for(const k in PRICES){pg.innerHTML+=`<div class="card"><h3>${k}</h3><table>${PRICES[k].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table></div>`}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+ document.getElementById('site').classList.toggle('hide',b.dataset.t!=='site');document.getElementById('rem').classList.toggle('hide',b.dataset.t!=='rem');scrollTo(0,0)});
+
+const M=document.getElementById('msgs');let started=false,state={};
+const MAIN=["💰 Priser","🕐 Öppettider","📅 Boka tid","📍 Hitta hit & parkering","🎁 Presentkort","↩️ Avbokning"];
+function toggleChat(){const c=document.getElementById('chat');c.classList.toggle('closed');if(!c.classList.contains('closed'))init()}
+function openChat(){document.getElementById('chat').classList.remove('closed');init()}
+function init(){if(started)return;started=true;bot("Hej och välkommen till Salong Lumi! 🌸 Jag är salongens digitala assistent. Vad kan jag hjälpa dig med?",MAIN)}
+function add(t,c){const d=document.createElement('div');d.className='m '+c;d.textContent=t;M.appendChild(d);M.scrollTop=M.scrollHeight;return d}
+function qr(opts){const w=document.createElement('div');w.className='qr';opts.forEach(o=>{const b=document.createElement('button');b.textContent=o;b.onclick=()=>{w.remove();send(o)};w.appendChild(b)});M.appendChild(w);M.scrollTop=M.scrollHeight}
+function bot(t,opts){const ty=document.createElement('div');ty.className='typing';ty.textContent='Lumi skriver…';M.appendChild(ty);M.scrollTop=M.scrollHeight;
+ setTimeout(()=>{ty.remove();add(t,'bot');if(opts)qr(opts)},window.FAST?0:550)}
+function norm(s){return s.toLowerCase().replace(/[!?.,]/g,' ')}
+function has(s,words){return words.some(w=>s.includes(w))}
+function priceList(cat){return cat+":\n"+PRICES[cat].map(r=>"• "+r[0]+" – "+r[1]).join("\n")}
+function slots(){const days=["mån","tis","ons","tors","fre","lör"];const out=[];const d=new Date();let i=1;
+ while(out.length<4){const x=new Date(d);x.setDate(d.getDate()+i);i++;const wd=x.getDay();if(wd===0)continue;
+ const t=[["10:30","14:00"],["11:00","16:30"],["13:15","17:45"],["09:45","15:30"]][out.length%4][i%2];out.push(days[wd-1]+" "+x.getDate()+"/"+(x.getMonth()+1)+" kl "+t)}return out}
+function send(text){text=(text||'').trim();if(!text)return;add(text,'me');reply(text)}
+function reply(raw){const s=norm(raw);
+ if(state.step==='service'&&!has(s,['klipp','herr','färg','sling','frans','nagel','naglar','dam'])) state={};
+ if(state.step==='time'&&!/kl \d|andra|annan|senare/.test(s)) state={};
+ if(state.step==='confirm'&&!has(s,['boka','ja','ok','annan'])) state={};
+ if(state.step==='service'){state.service=raw.replace(/^\S+\s/,'');state.step='time';return bot("Toppen – "+state.service.toLowerCase()+"! Här är några lediga tider de närmaste dagarna:",slots().concat(["Andra tider?"]))}
+ if(state.step==='time'){if(has(s,['andra','annan','senare'])){return bot("Fler tider hittar du i vårt bokningssystem (i riktiga salongen länkar jag direkt till t.ex. Bokadirekt). Vill du ha en av dessa istället?",slots())}
+   state.time=raw;state.step='confirm';return bot("Du har valt:\n✂️ "+state.service+"\n🕐 "+raw+"\n\nSka jag boka den tiden åt dig?",["✅ Boka","Välj annan tid"])}
+ if(state.step==='confirm'){if(has(s,['boka','ja','okej','ok'])&&!has(s,['annan'])){state.step=null;
+   return bot("Klart! 🎉 Din tid är bokad:\n"+state.service+", "+state.time+"\nSalong Lumi, Linnégatan 42.\n\nDu får en bekräftelse via SMS och en påminnelse dagen innan. Välkommen!\n\n(Demo – ingen riktig bokning gjordes.)",["Något mer?"])}
+   state.step='time';return bot("Inga problem, välj en annan tid:",slots())}
+ if(has(s,['tack'])&&s.length<25)return bot("Varsågod! Hör av dig om du undrar något mer 😊",["Något mer?"]);
+ if(has(s,['något mer','meny','hjälp','start']))return bot("Vad mer kan jag hjälpa till med?",MAIN);
+ if(has(s,['hej','hallå','tjena','god morgon','hejsan'])&&s.length<15)return bot("Hej hej! 😊 Vad kan jag hjälpa dig med idag?",MAIN);
+ if(has(s,['avbok','avboka','ombok','sjuk','ångra','kan inte komma','uteblir']))return bot("Avbokning eller ombokning är kostnadsfri fram till 24 timmar innan din tid. 🙏\nVid senare avbokning eller om du inte dyker upp debiterar vi 50 % av behandlingens pris.\n\nDu avbokar enklast via länken i ditt bekräftelse-SMS.",["📅 Boka ny tid","Något mer?"]);
+ if(has(s,['boka','tid ','ledig','bokning','komma in'])||s.trim()==='tid'){state={step:'service'};return bot("Vad roligt! Vilken behandling vill du boka?",["✂️ Damklippning","💈 Herrklipp","🎨 Färg/slingor","👁️ Fransar","💅 Naglar"])}
+ if(has(s,['presentkort','present','gåva','ge bort','födelsedag']))return bot("Presentkort finns i valfritt belopp från 300 kr och gäller i 12 månader 🎁 Du kan köpa det i salongen, eller så hjälper vi dig att få det som PDF via mejl. Perfekt till födelsedagar!",["Något mer?","🙋 Prata med personal"]);
+ if(has(s,['parker','bil','p-plats','spårvagn','buss','adress','var ligger','hitta','vägbeskriv','ligger ni']))return bot("Du hittar oss på Linnégatan 42, 413 08 Göteborg (fiktiv adress) 📍\n\n🚋 Spårvagn 1 eller 6 till Prinsgatan – 2 min promenad.\n🚗 Gatuparkering på Linnégatan/Prinsgatan (betalas via app), eller Q-Park Järntorget ca 5 min bort.",["📅 Boka tid","Något mer?"]);
+ if(has(s,['öppet','öppettid','stäng','öppnar','helg','lördag','söndag','tider har ni']))return bot("Våra öppettider:\nMån–fre 10–19\nLördag 10–16\nSöndag stängt\n\nJag i chatten svarar dock dygnet runt 😉",["📅 Boka tid","Något mer?"]);
+ let cat=null;
+ if(has(s,['frans','fransar','lash','bryn']))cat="Fransar & bryn";
+ else if(has(s,['nagel','naglar','gelé','gele','gellack','manikyr','nails']))cat="Naglar";
+ else if(has(s,['färg','slingor','sling','balayage','blond','toning']))cat="Färg & slingor";
+ else if(has(s,['klipp','herr','dam','barn','lugg','frisyr']))cat="Klippning";
+ if(cat){return bot(priceList(cat)+"\n\nVill du boka en tid?",["📅 Boka tid","💰 Alla priser","Något mer?"])}
+ if(has(s,['pris','kostar','kosta','prislista','kr','billig','dyr','alla priser']))return bot("Här är våra populäraste behandlingar – vilken kategori vill du se?",["✂️ Klippning","🎨 Färg & slingor","👁️ Fransar & bryn","💅 Naglar"]);
+ if(has(s,['personal','människa','ring','telefon','prata med']))return bot("Absolut! Jag skickar vidare till personalen 🙋 Lämna gärna ditt namn och nummer här i chatten så ringer eller sms:ar vi dig så snart vi kan (oftast samma dag).",["Något mer?"]);
+ return bot("Hmm, det är jag inte helt säker på 🤔 Vill du att jag skickar frågan vidare till personalen? De svarar oftast samma dag.",["🙋 Prata med personal","💰 Priser","📅 Boka tid"]);
+}
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const i=document.getElementById('in');send(i.value);i.value=''};
+setTimeout(()=>{if(!started&&innerWidth>700)openChat()},2500);
+</script></body></html>
