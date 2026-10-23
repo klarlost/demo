@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital assistent – demo av Klarlöst</title>
+<meta name="description" content="Så skulle en digital assistent kunna se ut för ert företag. En demo av Klarlöst, Göteborg.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14332F">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314332F'/%3E%3Cpath d='M22 16v32M22 33l17-17M28 28l13 20' stroke='%23F7F4EE' stroke-width='5.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='46' cy='18' r='3.5' fill='%23C98A5E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F4EE;--paper:#fff;--ink:#14332F;--muted:#51605D;--line:#E2DDD3;--accent:#9C5530;--accent-soft:#C98A5E;--teal-soft:#E6EEEC;
+--serif:"Fraunces",Georgia,"Times New Roman",serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:1.12;margin:0}
+p{margin:0}
+.ribbon{background:var(--ink);color:#DCE5E3;font-size:.82rem;text-align:center;padding:.5rem 1rem}
+.ribbon b{color:#fff;font-weight:500}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem}
+.top{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0}
+.brand{display:flex;align-items:center;gap:.55rem;font-family:var(--serif);font-size:1.25rem;text-decoration:none}
+.brand svg{width:28px;height:28px}
+.top a.cta{font-size:.88rem;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:.45rem .95rem}
+.top a.cta:hover{border-color:var(--ink)}
+.grid{display:grid;gap:2rem;padding:1.5rem 0 3rem}
+@media(min-width:900px){.grid{grid-template-columns:1fr 410px;gap:3.5rem;padding:3rem 0 4rem;align-items:start}}
+.eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:.9rem}
+.intro h1{font-size:clamp(2rem,5vw,3.3rem);max-width:17ch}
+.intro h1 em{font-style:italic;color:var(--accent)}
+.lead{color:var(--muted);font-size:1.08rem;margin-top:1.1rem;max-width:34rem}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:1.5rem 1.6rem;margin-top:2rem}
+.panel h2{font-size:1.35rem;margin-bottom:1rem}
+.panel ul{list-style:none;padding:0;margin:0;display:grid;gap:.8rem}
+.panel li{padding-left:1.5rem;position:relative}
+.panel li::before{content:"";position:absolute;left:0;top:.78em;width:.7rem;height:1px;background:var(--accent)}
+.how{margin-top:1.5rem;color:var(--muted);font-size:.93rem}
+.how strong{color:var(--ink);font-weight:500}
+.contact{margin-top:1.6rem;display:flex;flex-wrap:wrap;gap:.6rem}
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.75rem 1.25rem;border-radius:999px;font:500 .93rem var(--sans);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--ink);color:#F7F4EE}.btn-primary:hover{background:#0C2421}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:transparent}.btn-ghost:hover{border-color:var(--ink)}
+
+/* chat widget */
+.chat{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 50px -20px rgba(20,51,47,.35);display:flex;flex-direction:column;height:640px;max-height:calc(100vh - 2rem);overflow:hidden;position:relative}
+@media(min-width:900px){.chat{position:sticky;top:1rem}}
+@media(max-width:899px){.chat{order:-1;height:min(600px,calc(100svh - 5rem))}}
+.ch{background:var(--ink);color:#F7F4EE;padding:.95rem 1.1rem;display:flex;align-items:center;gap:.75rem}
+.av{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;font-family:var(--serif);font-size:1.1rem;color:var(--ink);flex:none;position:relative}
+.av::after{content:"";position:absolute;right:0;bottom:1px;width:10px;height:10px;border-radius:50%;background:#4CC38A;border:2px solid var(--ink)}
+.ch .t{min-width:0}
+.ch .n{font-weight:600;font-size:.98rem;line-height:1.3;overflow-wrap:anywhere}
+.ch .s{font-size:.78rem;opacity:.75}
+.ch .tag{margin-left:auto;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(247,244,238,.35);border-radius:999px;padding:.2rem .55rem;flex:none}
+#msgs{flex:1;overflow-y:auto;padding:1rem .95rem;background:#FBFAF7;scroll-behavior:smooth}
+.m{max-width:86%;padding:.65rem .9rem;border-radius:16px;margin:.4rem 0;font-size:.93rem;line-height:1.5;white-space:pre-line;animation:in .25s ease-out;overflow-wrap:anywhere}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:5px}
+.me{background:var(--ink);color:#F7F4EE;margin-left:auto;border-bottom-right-radius:5px}
+.sys{font-size:.75rem;color:var(--muted);text-align:center;margin:.3rem 0 .6rem}
+.qr{display:flex;flex-wrap:wrap;gap:.4rem;margin:.45rem 0 .6rem}
+.qr button{border:1px solid var(--accent-soft);background:#fff;color:var(--accent);border-radius:999px;padding:.42rem .8rem;font:500 .82rem var(--sans);cursor:pointer;text-align:left}
+.qr button:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.qr button:disabled{opacity:.45;cursor:default;background:#fff;color:var(--accent)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;margin:.4rem 0 .6rem;max-width:300px}
+.slots button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.45rem .3rem;font:500 .8rem var(--sans);color:var(--ink);cursor:pointer;line-height:1.25}
+.slots button small{display:block;color:var(--muted);font-weight:400;font-size:.72rem}
+.slots button:hover{border-color:var(--ink);background:var(--teal-soft)}
+.slots.done button{pointer-events:none;opacity:.5}
+.slots button.sel{opacity:1;background:var(--ink);color:#fff;border-color:var(--ink)}.slots button.sel small{color:#cfd9d7}
+.mini{background:#fff;border:1px solid var(--line);border-radius:14px;padding:.8rem;margin:.4rem 0 .6rem;max-width:88%;display:grid;gap:.45rem}
+.mini b{font-size:.85rem;font-weight:600}
+.mini input,.mini textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:.5rem .6rem;font:400 .88rem var(--sans);color:var(--ink);background:#FBFAF7}
+.mini textarea{min-height:58px;resize:vertical}
+.mini input:focus,.mini textarea:focus{outline:2px solid var(--accent-soft);outline-offset:0;border-color:transparent}
+.mini button{justify-self:start;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:.5rem 1rem;font:500 .85rem var(--sans);cursor:pointer}
+.mini .err{color:#B03A2E;font-size:.78rem;display:none}
+.mini.sent{opacity:.6;pointer-events:none}
+.ok{background:var(--teal-soft);border:1px solid #CFDDDA}
+.typing{display:inline-flex;gap:4px;padding:.75rem .9rem;background:#fff;border:1px solid var(--line);border-radius:16px;border-bottom-left-radius:5px;margin:.4rem 0}
+.typing i{width:6px;height:6px;border-radius:50%;background:#9AA7A4;animation:b 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+form.in{display:flex;border-top:1px solid var(--line);background:#fff}
+form.in input{flex:1;min-width:0;border:0;padding:1rem;font:400 16px var(--sans);outline:0;color:var(--ink);background:transparent}
+form.in button{border:0;background:none;color:var(--accent);font:600 .9rem var(--sans);padding:0 1.1rem;cursor:pointer}
+.disc{font-size:.7rem;color:var(--muted);text-align:center;padding:.4rem .8rem .55rem;background:#fff}
+footer{border-top:1px solid var(--line);padding:1.5rem 0 2rem;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:.4rem 1rem;justify-content:space-between}
+footer a{text-decoration:none;border-bottom:1px solid var(--line)}footer a:hover{color:var(--ink);border-color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="ribbon"><b>Demo</b> – exempel på hur en digital assistent kan se ut för <span class="fn">ert företag</span>. Svaren är exempel, inte riktiga uppgifter.</div>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="https://klarlost.github.io/" aria-label="Klarlöst">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#14332F"/><path d="M22 16v32M22 33l17-17M28 28l13 20" stroke="#F7F4EE" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="46" cy="18" r="3.5" fill="#C98A5E"/></svg>
+      Klarlöst</a>
+    <a class="cta" href="mailto:jesper.klarlost@gmail.com?subject=Digital%20assistent">Kontakta Jesper</a>
+  </div>
+
+  <main class="grid">
+    <section class="intro">
+      <p class="eyebrow" id="eyebrow">Demo · Digital assistent</p>
+      <h1>Så här kan en digital assistent se ut för <em class="fn">ert företag</em>.</h1>
+      <p class="lead" id="lead">Testa chatten – klicka på en föreslagen fråga eller skriv en egen. Allt körs direkt i webbläsaren och svaren är exempel som anpassas efter er verksamhet när boten byggs på riktigt.</p>
+
+      <div class="panel">
+        <h2>Det här skulle boten göra för er</h2>
+        <ul id="benefits"></ul>
+      </div>
+
+      <p class="how"><strong>Hur det fungerar:</strong> Klarlöst bygger boten utifrån er hemsida, prislista och vanliga frågor. Den svarar dygnet runt, tar emot förfrågningar och bokningar och skickar dem till er via mejl eller sms – ni bestämmer vad den får svara på.</p>
+
+      <div class="contact">
+        <a class="btn btn-primary" href="tel:+46760058387">Ring 076-005 83 87</a>
+        <a class="btn btn-ghost" id="mailbtn" href="mailto:jesper.klarlost@gmail.com">Mejla Jesper</a>
+      </div>
+    </section>
+
+    <aside class="chat" aria-label="Chattdemo">
+      <div class="ch">
+        <div class="av" id="avatar" aria-hidden="true">E</div>
+        <div class="t"><div class="n" id="botname">Ert företag – digital assistent</div><div class="s">Online · svarar direkt</div></div>
+        <span class="tag">Demo</span>
+      </div>
+      <div id="msgs" aria-live="polite"></div>
+      <form class="in" id="form" autocomplete="off">
+        <input id="inp" type="text" placeholder="Skriv ett meddelande…" aria-label="Skriv ett meddelande" maxlength="300">
+        <button type="submit">Skicka</button>
+      </form>
+      <div class="disc">Demo – exempelsvar. Inget skickas någonstans.</div>
+    </aside>
+  </main>
+</div>
+<footer><div class="wrap">
+  <span>Demo av <a href="https://klarlost.github.io/">Klarlöst</a> · Jesper Johannesson · <a href="tel:+46760058387">076-005 83 87</a> · <a href="mailto:jesper.klarlost@gmail.com">jesper.klarlost@gmail.com</a></span>
+  <span>Göteborg</span>
+</div></footer>
+
+<script src="industries.js"></script>
+<script>
+(function(){
+"use strict";
+var P=new URLSearchParams(location.search);
+function clean(s,max){return (s||"").replace(/[\u0000-\u001f<>]/g,"").replace(/\s+/g," ").trim().slice(0,max)}
+var F=clean(P.get("f"),60)||"Ert företag";
+var KEYALIAS={"rör":"vvs","ror":"vvs","elektriker":"el","snickare":"bygg","målare":"maleri","malare":"maleri","bokforing":"redovisning","byra":"redovisning","advokat":"juridik","mäklare":"maklare","tandlakare":"tandvard","tandläkare":"tandvard","fysio":"klinik","naprapat":"klinik","kiropraktor":"klinik","veterinär":"veterinar","djur":"veterinar","traning":"gym","restaurant":"restaurang","cafe":"restaurang","kafe":"restaurang","hotel":"hotell","verkstad":"bil","bilhandel":"bil","stad":"stad","städ":"stad","stadning":"stad","stadfirma":"stad","akeri":"transport","webshop":"ehandel","e-handel":"ehandel","bemanning":"rekrytering","frisor":"salong","frisör":"salong","skonhet":"salong","industri":"tillverkning","partihandel":"grossist"};
+var bk=clean(P.get("b"),30).toLowerCase();bk=KEYALIAS[bk]||bk;
+var IND=window.KL_IND||{};
+var D=IND[bk]||IND["default"];
+var isDefault=!IND[bk];
+var extraQs=(P.get("q")||"").split("|").map(function(s){return clean(s,120)}).filter(Boolean).slice(0,4);
+var G=/[sxzSXZ]$/.test(F)?F:F+"s";
+function t(s){return s.replace(/\{f\}s(?![a-zåäö])/g,G).replace(/\{f\}/g,F)}
+
+/* branding */
+document.title=F+" – digital assistent (demo av Klarlöst)";
+Array.prototype.forEach.call(document.querySelectorAll(".fn"),function(e){e.textContent=F});
+document.getElementById("botname").textContent=F+" – digital assistent";
+document.getElementById("avatar").textContent=(F.replace(/[^A-Za-zÅÄÖåäöÉé0-9]/g,"").charAt(0)||"K").toUpperCase();
+document.getElementById("eyebrow").textContent="Demo · "+(isDefault?"Digital assistent":D.label);
+document.getElementById("mailbtn").href="mailto:jesper.klarlost@gmail.com?subject="+encodeURIComponent("Digital assistent för "+F);
+var ul=document.getElementById("benefits");
+D.benefits.forEach(function(b){var li=document.createElement("li");li.textContent=t(b);ul.appendChild(li)});
+
+/* chat engine */
+var box=document.getElementById("msgs");
+function scroll(){box.scrollTop=box.scrollHeight}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function say(txt,who){var m=el("div","m "+(who||"bot"),txt);box.appendChild(m);scroll();return m}
+var busy=false;
+function botReply(txt,after,delay){
+  busy=true;var ty=el("div","typing");ty.innerHTML="<i></i><i></i><i></i>";box.appendChild(ty);scroll();
+  setTimeout(function(){ty.remove();say(txt);if(after)after();busy=false;scroll()},delay||Math.min(1500,500+txt.length*6));
+}
+function chips(list){
+  var w=el("div","qr");
+  list.forEach(function(it){var b=el("button",null,it.label);b.type="button";b.onclick=function(){if(busy)return;Array.prototype.forEach.call(w.querySelectorAll("button"),function(x){x.disabled=true});it.fn(it.label)};w.appendChild(b)});
+  box.appendChild(w);scroll();return w;
+}
+var answered={};
+function suggest(){
+  var list=[];
+  D.qs.forEach(function(q,i){if(!answered[i])list.push({label:q.q,fn:function(l){ask(l,i)}})});
+  extraQs.forEach(function(q,i){if(!answered["x"+i])list.push({label:q,fn:function(l){askExtra(l,i)}})});
+  if(!list.length)list.push({label:"Prata med en människa",fn:function(l){say(l,"me");botReply("Självklart! Lämna dina uppgifter så hör någon från "+F+" av sig.",function(){action("contact")})}});
+  chips(list.slice(0,6));
+}
+function ask(label,i){
+  answered[i]=1;say(label,"me");var q=D.qs[i];
+  botReply(t(q.a),function(){if(q.act)action(q.act);else followUp()});
+}
+function askExtra(label,i){
+  answered["x"+i]=1;say(label,"me");
+  botReply("Bra fråga! I den riktiga boten svarar jag på det utifrån "+G+" egen information – priser, villkor och rutiner läggs in när boten byggs. Vill du att någon hör av sig med svar?",function(){action("contact")});
+}
+function followUp(){setTimeout(function(){suggest()},250)}
+
+/* actions */
+var DAYS=["sön","mån","tis","ons","tor","fre","lör"],MON=["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
+function slotsFor(){
+  var out=[],d=new Date(),times=["09:00","10:30","13:00","14:30","16:00","08:15","11:00","15:15"],k=0;
+  while(out.length<6){d.setDate(d.getDate()+1);var wd=d.getDay();if(wd===0||(wd===6&&bk!=="restaurang"&&bk!=="hotell"&&bk!=="gym"))continue;
+    out.push({day:DAYS[wd]+" "+d.getDate()+" "+MON[d.getMonth()],time:(bk==="restaurang"?["18:00","19:30","17:30","20:00","18:30","19:00"][k%6]:times[(k*3+d.getDate())%times.length])});k++}
+  return out;
+}
+function action(kind){
+  if(kind==="book"){
+    say("Välj en tid som passar:");var g=el("div","slots");
+    slotsFor().forEach(function(s){var b=el("button");b.type="button";b.innerHTML="";b.appendChild(document.createTextNode(s.time));var sm=el("small",null,s.day);b.appendChild(sm);
+      b.onclick=function(){if(busy)return;g.classList.add("done");b.classList.add("sel");say(s.day+" kl. "+s.time,"me");
+        botReply("Toppen – jag har preliminärbokat "+s.day+" kl. "+s.time+". Vad heter du och vilket nummer når vi dig på?",function(){form("book",s)})};
+      g.appendChild(b)});
+    box.appendChild(g);scroll();
+  } else form(kind);
+}
+function form(kind,slot){
+  var titles={book:"Bekräfta bokning",quote:"Skicka offertförfrågan",contact:"Bli kontaktad"};
+  var f=el("form","mini");f.noValidate=true;
+  f.appendChild(el("b",null,titles[kind]));
+  var n=el("input");n.placeholder="Namn";n.setAttribute("aria-label","Namn");n.autocomplete="name";
+  var c=el("input");c.placeholder="Telefon eller e-post";c.setAttribute("aria-label","Telefon eller e-post");
+  f.appendChild(n);f.appendChild(c);
+  var d=null;
+  if(kind==="quote"){d=el("textarea");d.placeholder="Beskriv kort vad du behöver";d.setAttribute("aria-label","Beskrivning");f.appendChild(d)}
+  var er=el("div","err","Fyll i namn och telefon eller e-post.");f.appendChild(er);
+  var b=el("button",null,kind==="quote"?"Skicka förfrågan":kind==="book"?"Bekräfta":"Skicka");b.type="submit";f.appendChild(b);
+  f.onsubmit=function(e){e.preventDefault();
+    if(!n.value.trim()||c.value.trim().length<5){er.style.display="block";return}
+    f.classList.add("sent");var name=n.value.trim().split(" ")[0];
+    var msg=kind==="book"?"Klart, "+name+"! Din tid "+slot.day+" kl. "+slot.time+" är bokad. Du får en bekräftelse och en påminnelse dagen innan.":
+      kind==="quote"?"Tack "+name+"! Din förfrågan är skickad till "+F+". Du får svar så snart som möjligt, oftast inom en arbetsdag.":
+      "Tack "+name+"! Någon från "+F+" hör av sig till dig så snart som möjligt.";
+    var ok=say(msg);ok.classList.add("ok");
+    var s=el("div","sys","(Demo – i verkligheten hamnar detta direkt hos "+F+" via mejl/sms eller i ert bokningssystem.)");box.appendChild(s);scroll();
+    setTimeout(function(){botReply("Kan jag hjälpa dig med något mer?",suggest,700)},700);
+  };
+  box.appendChild(f);scroll();
+  setTimeout(function(){try{n.focus({preventScroll:true})}catch(_){}},50);
+}
+
+/* typed input */
+function norm(s){return s.toLowerCase().replace(/[?!.,:;]/g," ")}
+var GLOBAL=[
+  {kw:["hej","hallå","tjena","god morgon","hejsan"],fn:function(){botReply("Hej! Vad kan jag hjälpa dig med?",suggest)}},
+  {kw:["tack"],fn:function(){botReply("Varsågod! Hör av dig om du undrar något mer. 😊",suggest)}},
+  {kw:["öppet","öppettid","öppnar","stänger","stängt"],fn:function(){botReply("Öppettiderna läggs in från "+G+" egna uppgifter när boten byggs – den här demon har inga riktiga tider. Själva chatten är däremot öppen dygnet runt!",suggest)}},
+  {kw:["adress","hitta","ligger ni","var finns"],fn:function(){botReply("I den riktiga boten visar jag "+G+" adress, vägbeskrivning och parkering.",suggest)}},
+  {kw:["människa","person","ringa","ring mig","kontakta","telefon","prata med"],fn:function(){botReply("Självklart! Lämna dina uppgifter så hör någon från "+F+" av sig.",function(){action("contact")})}},
+  {kw:["boka","bokning","tid "],fn:function(){botReply("Gärna!",function(){action("book")},600)}},
+  {kw:["offert","kostar","pris"],fn:function(){botReply("Priser sätts enligt "+G+" prislista. Beskriv vad du behöver så får du ett förslag.",function(){action("quote")})}},
+  {kw:["klarlöst","vem har byggt","är du en bot","är du en robot"," ai "],fn:function(){botReply("Jag är en demo byggd av Klarlöst i Göteborg för att visa hur en digital assistent kan fungera för "+F+". Kontakta Jesper på 076-005 83 87 om du vill veta mer.",suggest)}}
+];
+function score(text,kws){var s=0;kws.forEach(function(k){if(text.indexOf(k)!==-1)s+=k.length>3?2:1});return s}
+document.getElementById("form").onsubmit=function(e){
+  e.preventDefault();var inp=document.getElementById("inp");var v=clean(inp.value,300);if(!v||busy)return;inp.value="";
+  say(v,"me");var text=" "+norm(v)+" ";
+  var best=-1,bs=0;D.qs.forEach(function(q,i){var s=score(text,q.kw);if(s>bs){bs=s;best=i}});
+  if(best>=0&&bs>=2){answered[best]=1;var q=D.qs[best];botReply(t(q.a),function(){if(q.act)action(q.act);else followUp()});return}
+  for(var g=0;g<GLOBAL.length;g++){if(score(text,GLOBAL[g].kw)>0){GLOBAL[g].fn();return}}
+  if(best>=0){answered[best]=1;var q2=D.qs[best];botReply(t(q2.a),function(){if(q2.act)action(q2.act);else followUp()});return}
+  botReply("Det är jag inte säker på – i den här demon kan jag bara ett urval av frågor. Den riktiga boten tränas på "+G+" egen information. Vill du att någon hör av sig med svar?",function(){chips([{label:"Ja, kontakta mig",fn:function(l){say(l,"me");botReply("Toppen!",function(){action("contact")},500)}},{label:"Visa förslag",fn:function(l){say(l,"me");botReply("Här är några saker du kan fråga om:",suggest,500)}}])});
+};
+
+/* start */
+say("Idag","sys").className="sys";
+botReply(t(D.greet),function(){botReply("Vad kan jag hjälpa dig med? Välj en fråga eller skriv själv.",suggest,700)},700);
+})();
+</script>
+</body>
+</html>
