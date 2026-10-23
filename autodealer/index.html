@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kungsbacka Autodealer – digital assistent (demo av Klarlöst)</title>
+<meta name="description" content="Demo: så kan en digital assistent ta emot värderingar, provkörningar och finansieringsfrågor för Kungsbacka Autodealer. En demo av Klarlöst, Göteborg.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14332F">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314332F'/%3E%3Cpath d='M22 16v32M22 33l17-17M28 28l13 20' stroke='%23F7F4EE' stroke-width='5.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='46' cy='18' r='3.5' fill='%23C98A5E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F4EE;--paper:#fff;--ink:#14332F;--muted:#51605D;--line:#E2DDD3;--accent:#9C5530;--accent-soft:#C98A5E;--teal-soft:#E6EEEC;
+--serif:"Fraunces",Georgia,"Times New Roman",serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:1.12;margin:0}
+p{margin:0}
+.ribbon{background:var(--ink);color:#DCE5E3;font-size:.82rem;text-align:center;padding:.5rem 1rem}
+.ribbon b{color:#fff;font-weight:500}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem}
+.top{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0}
+.brand{display:flex;align-items:center;gap:.55rem;font-family:var(--serif);font-size:1.25rem;text-decoration:none}
+.brand svg{width:28px;height:28px}
+.top a.cta{font-size:.88rem;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:.45rem .95rem}
+.top a.cta:hover{border-color:var(--ink)}
+.grid{display:grid;gap:2rem;padding:1.5rem 0 3rem}
+@media(min-width:900px){.grid{grid-template-columns:1fr 410px;gap:3.5rem;padding:3rem 0 4rem;align-items:start}}
+.eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:.9rem}
+.intro h1{font-size:clamp(2rem,5vw,3.3rem);max-width:17ch}
+.intro h1 em{font-style:italic;color:var(--accent)}
+.lead{color:var(--muted);font-size:1.08rem;margin-top:1.1rem;max-width:34rem}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:1.5rem 1.6rem;margin-top:2rem}
+.panel h2{font-size:1.35rem;margin-bottom:1rem}
+.panel ul{list-style:none;padding:0;margin:0;display:grid;gap:.8rem}
+.panel li{padding-left:1.5rem;position:relative}
+.panel li::before{content:"";position:absolute;left:0;top:.78em;width:.7rem;height:1px;background:var(--accent)}
+.how{margin-top:1.5rem;color:var(--muted);font-size:.93rem}
+.how strong{color:var(--ink);font-weight:500}
+.contact{margin-top:1.6rem;display:flex;flex-wrap:wrap;gap:.6rem}
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.75rem 1.25rem;border-radius:999px;font:500 .93rem var(--sans);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--ink);color:#F7F4EE}.btn-primary:hover{background:#0C2421}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:transparent}.btn-ghost:hover{border-color:var(--ink)}
+
+/* chat widget */
+.chat{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 50px -20px rgba(20,51,47,.35);display:flex;flex-direction:column;height:640px;max-height:calc(100vh - 2rem);overflow:hidden;position:relative}
+@media(min-width:900px){.chat{position:sticky;top:1rem}}
+@media(max-width:899px){.chat{order:-1;height:min(600px,calc(100svh - 5rem))}}
+.ch{background:var(--ink);color:#F7F4EE;padding:.95rem 1.1rem;display:flex;align-items:center;gap:.75rem}
+.av{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;font-family:var(--serif);font-size:1.1rem;color:var(--ink);flex:none;position:relative}
+.av::after{content:"";position:absolute;right:0;bottom:1px;width:10px;height:10px;border-radius:50%;background:#4CC38A;border:2px solid var(--ink)}
+.ch .t{min-width:0}
+.ch .n{font-weight:600;font-size:.98rem;line-height:1.3;overflow-wrap:anywhere}
+.ch .s{font-size:.78rem;opacity:.75}
+.ch .tag{margin-left:auto;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(247,244,238,.35);border-radius:999px;padding:.2rem .55rem;flex:none}
+#msgs{flex:1;overflow-y:auto;padding:1rem .95rem;background:#FBFAF7;scroll-behavior:smooth}
+.m{max-width:86%;padding:.65rem .9rem;border-radius:16px;margin:.4rem 0;font-size:.93rem;line-height:1.5;white-space:pre-line;animation:in .25s ease-out;overflow-wrap:anywhere}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:5px}
+.me{background:var(--ink);color:#F7F4EE;margin-left:auto;border-bottom-right-radius:5px}
+.sys{font-size:.75rem;color:var(--muted);text-align:center;margin:.3rem 0 .6rem}
+.qr{display:flex;flex-wrap:wrap;gap:.4rem;margin:.45rem 0 .6rem}
+.qr button{border:1px solid var(--accent-soft);background:#fff;color:var(--accent);border-radius:999px;padding:.42rem .8rem;font:500 .82rem var(--sans);cursor:pointer;text-align:left}
+.qr button:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.qr button:disabled{opacity:.45;cursor:default;background:#fff;color:var(--accent)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;margin:.4rem 0 .6rem;max-width:300px}
+.slots button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.45rem .3rem;font:500 .8rem var(--sans);color:var(--ink);cursor:pointer;line-height:1.25}
+.slots button small{display:block;color:var(--muted);font-weight:400;font-size:.72rem}
+.slots button:hover{border-color:var(--ink);background:var(--teal-soft)}
+.slots.done button{pointer-events:none;opacity:.5}
+.slots button.sel{opacity:1;background:var(--ink);color:#fff;border-color:var(--ink)}.slots button.sel small{color:#cfd9d7}
+.mini{background:#fff;border:1px solid var(--line);border-radius:14px;padding:.8rem;margin:.4rem 0 .6rem;max-width:88%;display:grid;gap:.45rem}
+.mini b{font-size:.85rem;font-weight:600}
+.mini input,.mini textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:.5rem .6rem;font:400 .88rem var(--sans);color:var(--ink);background:#FBFAF7}
+.mini textarea{min-height:58px;resize:vertical}
+.mini input:focus,.mini textarea:focus{outline:2px solid var(--accent-soft);outline-offset:0;border-color:transparent}
+.mini button{justify-self:start;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:.5rem 1rem;font:500 .85rem var(--sans);cursor:pointer}
+.mini .err{color:#B03A2E;font-size:.78rem;display:none}
+.mini.sent{opacity:.6;pointer-events:none}
+.ok{background:var(--teal-soft);border:1px solid #CFDDDA}
+.typing{display:inline-flex;gap:4px;padding:.75rem .9rem;background:#fff;border:1px solid var(--line);border-radius:16px;border-bottom-left-radius:5px;margin:.4rem 0}
+.typing i{width:6px;height:6px;border-radius:50%;background:#9AA7A4;animation:b 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+form.in{display:flex;border-top:1px solid var(--line);background:#fff}
+form.in input{flex:1;min-width:0;border:0;padding:1rem;font:400 16px var(--sans);outline:0;color:var(--ink);background:transparent}
+form.in button{border:0;background:none;color:var(--accent);font:600 .9rem var(--sans);padding:0 1.1rem;cursor:pointer}
+.disc{font-size:.7rem;color:var(--muted);text-align:center;padding:.4rem .8rem .55rem;background:#fff}
+footer{border-top:1px solid var(--line);padding:1.5rem 0 2rem;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:.4rem 1rem;justify-content:space-between}
+footer a{text-decoration:none;border-bottom:1px solid var(--line)}footer a:hover{color:var(--ink);border-color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+.mini select{width:100%;border:1px solid var(--line);border-radius:9px;padding:.5rem .6rem;font:400 .88rem var(--sans);color:var(--ink);background:#FBFAF7}
+.mini label{font-size:.75rem;color:var(--muted);margin-bottom:-.3rem}
+.mini .row2{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.cars{display:grid;gap:.4rem;margin:.4rem 0 .6rem;max-width:92%}
+.cars button{display:flex;gap:.7rem;align-items:center;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.55rem .7rem;cursor:pointer;font:400 .84rem var(--sans);color:var(--ink)}
+.cars button:hover{border-color:var(--ink);background:var(--teal-soft)}
+.cars button .ic{font-size:1.4rem;flex:none}
+.cars button b{display:block;font-weight:600}
+.cars button small{color:var(--muted)}
+.cars button .ex{margin-left:auto;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;background:#FFF3E6;color:var(--accent);border:1px solid var(--accent-soft);border-radius:999px;padding:.1rem .45rem;flex:none}
+.cars.done button{pointer-events:none;opacity:.5}.cars button.sel{opacity:1;border-color:var(--ink)}
+.handoff{border:1px dashed var(--accent-soft);background:#FFFBF6;border-radius:14px;padding:.7rem .8rem;margin:.3rem 0 .7rem;max-width:92%;font-size:.8rem;line-height:1.45}
+.handoff .hh{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.35rem}
+.handoff pre{margin:0;white-space:pre-wrap;font:400 .8rem/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink)}
+.leadlog{margin-top:1.2rem}
+.leadlog .empty{color:var(--muted);font-size:.9rem}
+.lead-item{border:1px solid var(--line);border-radius:12px;padding:.6rem .8rem;margin-top:.5rem;font-size:.88rem;background:#FBFAF7}
+.lead-item b{font-weight:600}
+.lead-item .when{float:right;color:var(--muted);font-size:.78rem}
+.facts{display:grid;gap:.35rem;font-size:.92rem;color:var(--muted);margin-top:1rem}
+.facts b{color:var(--ink);font-weight:500}
+</style>
+</head>
+<body>
+<div class="ribbon"><b>Demo</b> – exempel på hur en digital assistent kan se ut för <b>Kungsbacka Autodealer</b>. Bilar, tider och svar är exempel – inget skickas någonstans.</div>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="https://klarlost.github.io/" aria-label="Klarlöst">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#14332F"/><path d="M22 16v32M22 33l17-17M28 28l13 20" stroke="#F7F4EE" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="46" cy="18" r="3.5" fill="#C98A5E"/></svg>
+      Klarlöst</a>
+    <a class="cta" href="mailto:jesper.klarlost@gmail.com?subject=Digital%20assistent%20f%C3%B6r%20Kungsbacka%20Autodealer">Kontakta Jesper</a>
+  </div>
+
+  <main class="grid">
+    <section class="intro">
+      <p class="eyebrow">Demo · Bilhandel · Kungsbacka</p>
+      <h1>Värderingar och provkörningar – <em>även när ni har stängt</em>.</h1>
+      <p class="lead">Så här kan en digital assistent på auto-dealer.se och Facebook ta emot kunder dygnet runt. Testa chatten: begär en värdering, boka en provkörning eller fråga om finansiering. Varje förfrågan blir ett färdigt lead till säljaren.</p>
+
+      <div class="panel">
+        <h2>Det här skulle assistenten göra för er</h2>
+        <ul>
+          <li>Tar emot värderingsförfrågningar dygnet runt – regnr, miltal, skick och om det gäller inbyte – så att ni kan ringa upp med ett bud direkt.</li>
+          <li>Bokar provkörningar på bilar i lager och skickar en bekräftelse till kunden, så att bilen kan stå framme när kunden kommer.</li>
+          <li>Svarar på vanliga frågor om finansiering, garanti, inbyte och vad man behöver ha med sig för att sälja sin bil.</li>
+          <li>Skickar varje lead som sms/mejl till rätt säljare och påminner om leads som inte har fått svar.</li>
+        </ul>
+      </div>
+
+      <div class="panel leadlog" aria-live="polite">
+        <h2>Säljarens inkorg <span style="font-size:.8rem;color:var(--muted);font-family:var(--sans)">(demo)</span></h2>
+        <div id="leads"><p class="empty">Här dyker förfrågningarna upp som färdiga leads när du testar chatten.</p></div>
+      </div>
+
+      <p class="how"><strong>Hur det fungerar:</strong> Klarlöst bygger assistenten utifrån er hemsida, ert lager och era vanliga frågor. Ni bestämmer vad den får svara på – priser och bud sätts alltid av er säljare, aldrig av boten.</p>
+
+      <div class="contact">
+        <a class="btn btn-primary" href="tel:+46760058387">Ring 076-005 83 87</a>
+        <a class="btn btn-ghost" href="mailto:jesper.klarlost@gmail.com?subject=Digital%20assistent%20f%C3%B6r%20Kungsbacka%20Autodealer">Mejla Jesper</a>
+      </div>
+    </section>
+
+    <aside class="chat" aria-label="Chattdemo">
+      <div class="ch">
+        <div class="av" aria-hidden="true">K</div>
+        <div class="t"><div class="n">Kungsbacka Autodealer – digital assistent</div><div class="s">Online · svarar direkt</div></div>
+        <span class="tag">Demo</span>
+      </div>
+      <div id="msgs" aria-live="polite"></div>
+      <form class="in" id="form" autocomplete="off">
+        <input id="inp" type="text" placeholder="Skriv ett meddelande…" aria-label="Skriv ett meddelande" maxlength="300">
+        <button type="submit">Skicka</button>
+      </form>
+      <div class="disc">Demo – exempelsvar och exempelbilar. Inget skickas någonstans.</div>
+    </aside>
+  </main>
+</div>
+<footer><div class="wrap">
+  <span>Demo av <a href="https://klarlost.github.io/">Klarlöst</a> · Jesper Johannesson · <a href="tel:+46760058387">076-005 83 87</a> · <a href="mailto:jesper.klarlost@gmail.com">jesper.klarlost@gmail.com</a></span>
+  <span>Göteborg · Ingen koppling till Kungsbacka Autodealer AB:s riktiga system</span>
+</div></footer>
+
+<script>
+(function(){
+"use strict";
+var F="Kungsbacka Autodealer";
+var CARS=[
+ {id:"v60",icon:"🚙",name:"Volvo V60 D4 Momentum",info:"2018 · 12 400 mil · automat · exempelpris 189 900 kr"},
+ {id:"golf",icon:"🚗",name:"Volkswagen Golf 1.4 TSI",info:"2017 · 9 800 mil · manuell · exempelpris 129 900 kr"},
+ {id:"tesla",icon:"⚡",name:"Tesla Model 3 Long Range",info:"2021 · 6 100 mil · el · exempelpris 299 900 kr"}
+];
+var box=document.getElementById("msgs");
+function clean(s,max){return (s||"").replace(/[\u0000-\u001f<>]/g,"").replace(/\s+/g," ").trim().slice(0,max)}
+function scroll(){box.scrollTop=box.scrollHeight}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function say(txt,who){var m=el("div","m "+(who||"bot"),txt);box.appendChild(m);scroll();return m}
+var busy=false;
+function botReply(txt,after,delay){
+  busy=true;var ty=el("div","typing");ty.innerHTML="<i></i><i></i><i></i>";box.appendChild(ty);scroll();
+  setTimeout(function(){ty.remove();say(txt);busy=false;if(after)after();scroll()},delay||Math.min(1400,450+txt.length*5));
+}
+function chips(list){
+  var w=el("div","qr");
+  list.forEach(function(it){var b=el("button",null,it.label);b.type="button";b.onclick=function(){if(busy)return;Array.prototype.forEach.call(w.querySelectorAll("button"),function(x){x.disabled=true});say(it.label,"me");it.fn()};w.appendChild(b)});
+  box.appendChild(w);scroll();return w;
+}
+function nowStr(){var d=new Date();return ("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)}
+function more(){setTimeout(function(){botReply("Kan jag hjälpa dig med något mer?",menu,600)},600)}
+
+/* main menu */
+function menu(){
+  chips([
+    {label:"Värdera min bil",fn:valuation},
+    {label:"Boka provkörning",fn:testdrive},
+    {label:"Finansiering",fn:financing},
+    {label:"Inbyte – hur går det till?",fn:tradein},
+    {label:"Öppettider & adress",fn:hours},
+    {label:"Prata med en säljare",fn:contact}
+  ]);
+}
+
+/* lead handoff (demo) */
+var leadCount=0;
+function handoff(type,lines,sum){
+  leadCount++;
+  var h=el("div","handoff");h.appendChild(el("div","hh","Demo · så här får säljaren det (sms + mejl)"));
+  h.appendChild(el("pre",null,"SMS till säljare, kl. "+nowStr()+":\nNY "+type.toUpperCase()+" via hemsidan\n"+lines.join("\n")+"\nSvara kunden inom 15 min 👍"));
+  box.appendChild(h);
+  box.appendChild(el("div","sys","(Demo – i verkligheten skickas detta till er säljares mobil och till info@-adressen. Här skickas ingenting.)"));scroll();
+  var L=document.getElementById("leads");var e=L.querySelector(".empty");if(e)e.remove();
+  var it=el("div","lead-item");var w=el("span","when","kl. "+nowStr());it.appendChild(w);
+  it.appendChild(el("b",null,type+" – "));it.appendChild(document.createTextNode(sum));L.insertBefore(it,L.firstChild);
+}
+
+/* form builder */
+function field(f,ph,opts){
+  var i;opts=opts||{};
+  if(opts.select){i=el("select");opts.select.forEach(function(o,k){var op=el("option",null,o);op.value=k?o:"";i.appendChild(op)})}
+  else{i=el("input");i.placeholder=ph;if(opts.mode)i.inputMode=opts.mode;if(opts.max)i.maxLength=opts.max}
+  i.setAttribute("aria-label",opts.label||ph);(opts.parent||f).appendChild(i);return i;
+}
+function miniForm(title,build,submitLabel,onok){
+  var f=el("form","mini");f.noValidate=true;f.appendChild(el("b",null,title));
+  var api=build(f);
+  var er=el("div","err","");f.appendChild(er);
+  var b=el("button",null,submitLabel);b.type="submit";f.appendChild(b);
+  f.onsubmit=function(e){e.preventDefault();var msg=api.check();if(msg){er.textContent=msg;er.style.display="block";return}
+    f.classList.add("sent");onok(api.values())};
+  box.appendChild(f);scroll();return f;
+}
+function contactFields(f){
+  var n=field(f,"Namn",{max:60}),c=field(f,"Mobilnummer",{mode:"tel",max:20});
+  return {n:n,c:c,ok:function(){return n.value.trim().length>1&&c.value.replace(/\D/g,"").length>=7}};
+}
+var REG=/^[A-ZÅÄÖ]{3}\s?\d{2}[A-ZÅÄÖ0-9]$/;
+
+/* 1. valuation */
+function valuation(){
+  botReply("Gärna! Vi köper bilar i alla skick. Fyll i uppgifterna nedan så återkommer en säljare med en värdering – värderingen är kostnadsfri.",function(){
+    miniForm("Värderingsförfrågan",function(f){
+      f.appendChild(el("label",null,"Registreringsnummer"));
+      var r=field(f,"t.ex. ABC 123",{max:7,label:"Registreringsnummer"});
+      var row=el("div","row2");f.appendChild(row);
+      var mil=field(f,"Miltal (mil)",{mode:"numeric",max:7,parent:row,label:"Miltal i mil"});
+      var sk=field(f,"",{select:["Skick…","Mycket bra","Bra – normalt slitage","Några skador/fel","Behöver repareras","Ej körbar"],parent:row,label:"Skick"});
+      var inb=field(f,"",{select:["Vill du byta in bilen?","Ja, inbyte mot annan bil","Nej, bara sälja","Vet inte än"],label:"Inbyte"});
+      var cf=contactFields(f);
+      return {check:function(){
+          if(!REG.test(r.value.trim().toUpperCase()))return "Ange ett giltigt registreringsnummer, t.ex. ABC 123.";
+          if(!/^\d{1,6}$/.test(mil.value.replace(/\s/g,"")))return "Ange miltal i mil, t.ex. 12400.";
+          if(!sk.value)return "Välj bilens skick.";
+          if(!cf.ok())return "Fyll i namn och mobilnummer.";return ""},
+        values:function(){return {reg:r.value.trim().toUpperCase().replace(/\s/g,""),mil:mil.value.replace(/\s/g,""),sk:sk.value,inb:inb.value||"Ej angivet",n:clean(cf.n.value,60),c:clean(cf.c.value,20)}}};
+    },"Skicka för värdering",function(v){
+      var name=v.n.split(" ")[0];
+      var ok=say("Tack "+name+"! Vi har tagit emot din förfrågan för "+v.reg+" ("+Number(v.mil).toLocaleString("sv-SE")+" mil, "+v.sk.toLowerCase()+"). Vi återkommer med värdering så snart vi kan – oftast inom 24 timmar. Ta gärna med registreringsbevis och legitimation när du kommer.");ok.classList.add("ok");
+      handoff("Värdering",["Regnr: "+v.reg,"Miltal: "+Number(v.mil).toLocaleString("sv-SE")+" mil","Skick: "+v.sk,"Inbyte: "+v.inb,"Kund: "+v.n+", "+v.c],v.reg+", "+Number(v.mil).toLocaleString("sv-SE")+" mil, "+v.sk.toLowerCase()+" · "+v.n);
+      more();
+    });
+  });
+}
+
+/* 2. test drive */
+var DAYS=["sön","mån","tis","ons","tor","fre","lör"],MON=["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
+function slots(){
+  var out=[],d=new Date(),wk=["10:00","11:30","13:00","14:30","16:00"],sat=["10:30","12:00"],k=0;
+  while(out.length<6){d.setDate(d.getDate()+1);var wd=d.getDay();if(wd===0)continue;
+    var arr=wd===6?sat:wk;out.push({day:DAYS[wd]+" "+d.getDate()+" "+MON[d.getMonth()],time:arr[(k*2+d.getDate())%arr.length]});k++}
+  return out;
+}
+function testdrive(){
+  botReply("Kul! Vilken bil vill du provköra? (Det här är exempelbilar – i den riktiga assistenten visas ert aktuella lager.)",function(){
+    var g=el("div","cars");
+    CARS.forEach(function(c){var b=el("button");b.type="button";
+      b.appendChild(el("span","ic",c.icon));var t=el("span");t.appendChild(el("b",null,c.name));t.appendChild(el("small",null,c.info));b.appendChild(t);b.appendChild(el("span","ex","Exempel"));
+      b.onclick=function(){if(busy)return;g.classList.add("done");b.classList.add("sel");say(c.name,"me");pickSlot(c)};g.appendChild(b)});
+    box.appendChild(g);scroll();
+  });
+}
+function pickSlot(car){
+  botReply("Bra val! Välj en tid så ser vi till att "+car.name.split(" ").slice(0,2).join(" ")+" står framme och är redo när du kommer:",function(){
+    var g=el("div","slots");
+    slots().forEach(function(s){var b=el("button");b.type="button";b.appendChild(document.createTextNode(s.time));b.appendChild(el("small",null,s.day));
+      b.onclick=function(){if(busy)return;g.classList.add("done");b.classList.add("sel");say(s.day+" kl. "+s.time,"me");
+        botReply("Toppen – jag har preliminärbokat "+s.day+" kl. "+s.time+". Vad heter du och vilket nummer når vi dig på? Ta med giltigt körkort.",function(){
+          miniForm("Bekräfta provkörning",function(f){var cf=contactFields(f);
+            var inb=field(f,"",{select:["Har du en bil att byta in?","Ja","Nej","Kanske"],label:"Inbyte"});
+            return {check:function(){return cf.ok()?"":"Fyll i namn och mobilnummer."},values:function(){return {n:clean(cf.n.value,60),c:clean(cf.c.value,20),inb:inb.value||"Ej angivet"}}}},
+          "Bekräfta",function(v){
+            var ok=say("Klart, "+v.n.split(" ")[0]+"! Provkörning av "+car.name+" "+s.day+" kl. "+s.time+" på Verkstadsgatan 9 i Kungsbacka. Du får en bekräftelse och en påminnelse via sms dagen innan.");ok.classList.add("ok");
+            handoff("Provkörning",["Bil: "+car.name+" (exempel)","Tid: "+s.day+" kl. "+s.time,"Inbyte: "+v.inb,"Kund: "+v.n+", "+v.c],car.name+", "+s.day+" "+s.time+" · "+v.n);
+            more();
+          });
+        })};
+      g.appendChild(b)});
+    box.appendChild(g);scroll();
+  });
+}
+
+/* 3. financing */
+function financing(){
+  botReply("Absolut! "+F+" samarbetar med flera banker och finansieringsbolag och hjälper dig genom hela processen. Ränta och villkor beror på bilen, kontantinsatsen och kreditprövningen – därför ger en säljare dig ett konkret förslag.",function(){
+    chips([{label:"Ja, ge mig ett förslag",fn:finForm},{label:"Vad behöver ni veta?",fn:function(){botReply("Ungefär vilken bil eller prisklass det gäller, hur stor kontantinsats du tänkt dig (vanligtvis minst 20 %) och hur länge du vill betala. Inga personuppgifter behövs i chatten – kreditansökan görs tryggt hos finansbolaget.",function(){chips([{label:"Ge mig ett förslag",fn:finForm},{label:"Tillbaka till menyn",fn:function(){botReply("Vad vill du göra?",menu,400)}}])})}}]);
+  });
+}
+function finForm(){
+  botReply("Fyll i så återkommer en säljare med ett finansieringsförslag:",function(){
+    miniForm("Finansieringsförfrågan",function(f){
+      var car=field(f,"Bil eller prisklass (t.ex. V60 / ca 200 000 kr)",{max:80});
+      var row=el("div","row2");f.appendChild(row);
+      var ins=field(f,"",{select:["Kontantinsats…","Under 20 %","20–30 %","Över 30 %","Inbytesbil som insats"],parent:row,label:"Kontantinsats"});
+      var tid=field(f,"",{select:["Avbetalningstid…","12–36 mån","48–60 mån","72 mån eller mer","Vet inte"],parent:row,label:"Avbetalningstid"});
+      var cf=contactFields(f);
+      return {check:function(){if(car.value.trim().length<2)return "Skriv vilken bil eller prisklass det gäller.";return cf.ok()?"":"Fyll i namn och mobilnummer."},
+        values:function(){return {car:clean(car.value,80),ins:ins.value||"Ej angivet",tid:tid.value||"Ej angivet",n:clean(cf.n.value,60),c:clean(cf.c.value,20)}}};
+    },"Skicka",function(v){
+      var ok=say("Tack "+v.n.split(" ")[0]+"! En säljare återkommer med ett förslag på finansiering. Inget är bindande förrän du själv har godkänt ansökan.");ok.classList.add("ok");
+      handoff("Finansiering",["Bil/prisklass: "+v.car,"Kontantinsats: "+v.ins,"Avbetalning: "+v.tid,"Kund: "+v.n+", "+v.c],v.car+" · "+v.n);
+      more();
+    });
+  });
+}
+
+/* 4. trade-in / FAQ */
+function tradein(){
+  botReply("Inbyte är enkelt: du får en värdering av din nuvarande bil och värdet dras av på bilen du köper. Om "+F+" köper din bil direkt kan affären vara klar samma dag. Ha med registreringsbevis, eventuell servicebok och giltig legitimation.",function(){
+    chips([{label:"Värdera min bil",fn:valuation},{label:"Boka provkörning",fn:testdrive},{label:"Annan fråga",fn:function(){botReply("Vad vill du veta?",menu,400)}}]);
+  });
+}
+function warranty(){botReply("Ja – bilarna säljs med garanti enligt konsumentköplagen, och garantitiden varierar beroende på bilens ålder och pris. Säljaren går igenom villkoren noggrant vid köpet. Vill du att någon ringer upp om en specifik bil?",function(){chips([{label:"Ja, ring mig",fn:contact},{label:"Nej tack",fn:function(){botReply("Okej! Vad mer kan jag hjälpa till med?",menu,400)}}])})}
+
+/* 5. hours & address (address verified on auto-dealer.se; hours not published there) */
+function hours(){
+  botReply("Du hittar oss på Verkstadsgatan 9, 434 42 Kungsbacka. Telefon 0300-685194, e-post info@auto-dealer.se.\n\nÖppettider: [läggs in från er egen information vid uppsättning]. Själva chatten är öppen dygnet runt – lämna en förfrågan så återkommer vi så fort vi öppnar.",more);
+}
+
+/* 6. contact */
+function contact(){
+  botReply("Självklart! Lämna namn och nummer så ringer en säljare upp dig.",function(){
+    miniForm("Bli uppringd",function(f){var cf=contactFields(f);var q=el("textarea");q.placeholder="Vad gäller det? (valfritt)";q.setAttribute("aria-label","Ärende");f.appendChild(q);
+      return {check:function(){return cf.ok()?"":"Fyll i namn och mobilnummer."},values:function(){return {n:clean(cf.n.value,60),c:clean(cf.c.value,20),q:clean(q.value,200)||"–"}}}},
+    "Ring mig",function(v){var ok=say("Tack "+v.n.split(" ")[0]+"! En säljare ringer upp dig så snart som möjligt.");ok.classList.add("ok");
+      handoff("Uppringning",["Ärende: "+v.q,"Kund: "+v.n+", "+v.c],v.q+" · "+v.n);more()});
+  });
+}
+
+/* typed input */
+function norm(s){return " "+s.toLowerCase().replace(/[?!.,:;]/g," ")+" "}
+var RULES=[
+  {kw:["värder","sälja","sälj min","köper ni","vad är min bil","bud på"],fn:valuation},
+  {kw:["provkör","provkörning","testkör","visning"],fn:testdrive},
+  {kw:["finans","lån","avbetal","ränta","månadskostnad","kontantinsats","leasing"],fn:financing},
+  {kw:["inbyte","byta in","byt in","bilbyte"],fn:tradein},
+  {kw:["garanti","reklamation"],fn:warranty},
+  {kw:["öppet","öppettid","öppnar","stänger","adress","hitta","ligger ni","var finns"],fn:hours},
+  {kw:["människa","säljare","ring","ringa","kontakta","prata med"],fn:contact},
+  {kw:["verkstad","laga","reparation","reparera","fel på","service","reklamation","garantiärende"],fn:function(){botReply("Gäller det en bil du har köpt hos "+F+"? Beskriv kort vad som hänt och lämna ditt nummer, så skickas ärendet direkt till rätt person och du får en bekräftelse på att det är mottaget.",contact)}},
+  {kw:["lager","finns bilen","kvar","annons","bilar ni har"],fn:function(){botReply("I den riktiga assistenten läser jag direkt från ert aktuella lager och kan svara om en bil finns kvar. Vill du boka en provkörning?",function(){chips([{label:"Boka provkörning",fn:testdrive},{label:"Prata med en säljare",fn:contact}])})}},
+  {kw:["hej","hallå","tjena","hejsan"],fn:function(){botReply("Hej! Vad kan jag hjälpa dig med?",menu)}},
+  {kw:["tack"],fn:function(){botReply("Varsågod! Hör av dig om du undrar något mer. 😊",menu)}},
+  {kw:["klarlöst","är du en bot","robot"," ai "],fn:function(){botReply("Jag är en demo byggd av Klarlöst i Göteborg för att visa hur en digital assistent kan fungera för "+F+". Kontakta Jesper på 076-005 83 87 om du vill veta mer.",menu)}}
+];
+document.getElementById("form").onsubmit=function(e){
+  e.preventDefault();var inp=document.getElementById("inp");var v=clean(inp.value,300);if(!v||busy)return;inp.value="";
+  say(v,"me");var t=norm(v);
+  for(var i=0;i<RULES.length;i++){for(var j=0;j<RULES[i].kw.length;j++){if(t.indexOf(RULES[i].kw[j])!==-1){RULES[i].fn();return}}}
+  botReply("Det är jag inte säker på – i den här demon kan jag bara ett urval av frågor. Den riktiga assistenten tränas på "+F+"s egen information. Vill du att en säljare hör av sig?",function(){chips([{label:"Ja, ring mig",fn:contact},{label:"Visa vad du kan",fn:function(){botReply("Det här kan jag hjälpa till med:",menu,400)}}])});
+};
+
+/* start */
+say("Idag","sys").className="sys";
+botReply("Hej och välkommen till "+F+"! 🚗 Jag är er digitala assistent. Jag kan ta emot en värdering av din bil, boka provkörning och svara på frågor om finansiering och inbyte – dygnet runt.",function(){botReply("Vad vill du göra?",menu,600)},700);
+})();
+</script>
+</body>
+</html>
