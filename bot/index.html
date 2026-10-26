@@ -147,8 +147,15 @@ footer a{text-decoration:none;border-bottom:1px solid var(--line)}footer a:hover
 
 <script src="industries.js"></script>
 <script>
+/* language + contact mode: no lang param = Swedish exactly as before */
+(function(){var p=new URLSearchParams(location.search),l=(p.get("lang")||"").toLowerCase();
+window.KL_LANG=(l==="en"||l==="es")?l:"sv";
+window.KL_SAFE=window.KL_LANG==="sv"?p.get("contact")==="0":p.get("contact")!=="1";})();
+</script>
+<script>
 (function(){
 "use strict";
+if(window.KL_LANG!=="sv")return;
 var P=new URLSearchParams(location.search);
 function clean(s,max){return (s||"").replace(/[\u0000-\u001f<>]/g,"").replace(/\s+/g," ").trim().slice(0,max)}
 var F=clean(P.get("f"),60)||"Ert företag";
@@ -257,7 +264,7 @@ var GLOBAL=[
   {kw:["människa","person","ringa","ring mig","kontakta","telefon","prata med"],fn:function(){botReply("Självklart! Lämna dina uppgifter så hör någon från "+F+" av sig.",function(){action("contact")})}},
   {kw:["boka","bokning","tid "],fn:function(){botReply("Gärna!",function(){action("book")},600)}},
   {kw:["offert","kostar","pris"],fn:function(){botReply("Priser sätts enligt "+G+" prislista. Beskriv vad du behöver så får du ett förslag.",function(){action("quote")})}},
-  {kw:["klarlöst","vem har byggt","är du en bot","är du en robot"," ai "],fn:function(){botReply("Jag är en demo byggd av Klarlöst i Göteborg för att visa hur en digital assistent kan fungera för "+F+". Kontakta Jesper på 076-005 83 87 om du vill veta mer.",suggest)}}
+  {kw:["klarlöst","vem har byggt","är du en bot","är du en robot"," ai "],fn:function(){botReply("Jag är en demo byggd av Klarlöst i Göteborg för att visa hur en digital assistent kan fungera för "+F+"."+(window.KL_SAFE?"":" Kontakta Jesper på 076-005 83 87 om du vill veta mer."),suggest)}}
 ];
 function score(text,kws){var s=0;kws.forEach(function(k){if(text.indexOf(k)!==-1)s+=k.length>3?2:1});return s}
 document.getElementById("form").onsubmit=function(e){
@@ -275,5 +282,8 @@ say("Idag","sys").className="sys";
 botReply(t(D.greet),function(){botReply("Vad kan jag hjälpa dig med? Välj en fråga eller skriv själv.",suggest,700)},700);
 })();
 </script>
+<script src="industries_en.js"></script>
+<script src="industries_es.js"></script>
+<script src="i18n.js"></script>
 </body>
 </html>
