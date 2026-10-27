@@ -120,8 +120,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--line)}footer a:hover
       <p class="how"><strong>Hur det fungerar:</strong> Klarlöst bygger boten utifrån er hemsida, prislista och vanliga frågor. Den svarar dygnet runt, tar emot förfrågningar och bokningar och skickar dem till er via mejl eller sms – ni bestämmer vad den får svara på.</p>
 
       <div class="contact">
-        <a class="btn btn-primary" href="tel:+46760058387">Ring 076-005 83 87</a>
-        <a class="btn btn-ghost" id="mailbtn" href="mailto:jesper.klarlost@gmail.com">Mejla Jesper</a>
+        <a class="btn btn-primary" id="mailbtn" href="mailto:jesper.klarlost@gmail.com">Mejla Jesper</a>
       </div>
     </section>
 
@@ -141,7 +140,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--line)}footer a:hover
   </main>
 </div>
 <footer><div class="wrap">
-  <span>Demo av <a href="https://klarlost.github.io/">Klarlöst</a> · Jesper Johannesson · <a href="tel:+46760058387">076-005 83 87</a> · <a href="mailto:jesper.klarlost@gmail.com">jesper.klarlost@gmail.com</a></span>
+  <span>Demo av <a href="https://klarlost.github.io/">Klarlöst</a> · Jesper Johannesson · <a href="mailto:jesper.klarlost@gmail.com">jesper.klarlost@gmail.com</a></span>
   <span>Göteborg</span>
 </div></footer>
 
@@ -264,7 +263,7 @@ var GLOBAL=[
   {kw:["människa","person","ringa","ring mig","kontakta","telefon","prata med"],fn:function(){botReply("Självklart! Lämna dina uppgifter så hör någon från "+F+" av sig.",function(){action("contact")})}},
   {kw:["boka","bokning","tid "],fn:function(){botReply("Gärna!",function(){action("book")},600)}},
   {kw:["offert","kostar","pris"],fn:function(){botReply("Priser sätts enligt "+G+" prislista. Beskriv vad du behöver så får du ett förslag.",function(){action("quote")})}},
-  {kw:["klarlöst","vem har byggt","är du en bot","är du en robot"," ai "],fn:function(){botReply("Jag är en demo byggd av Klarlöst i Göteborg för att visa hur en digital assistent kan fungera för "+F+"."+(window.KL_SAFE?"":" Kontakta Jesper på 076-005 83 87 om du vill veta mer."),suggest)}}
+  {kw:["klarlöst","vem har byggt","är du en bot","är du en robot"," ai "],fn:function(){botReply("Jag är en demo byggd av Klarlöst i Göteborg för att visa hur en digital assistent kan fungera för "+F+"."+(window.KL_SAFE?"":" Mejla Jesper på jesper.klarlost@gmail.com om du vill veta mer."),suggest)}}
 ];
 function score(text,kws){var s=0;kws.forEach(function(k){if(text.indexOf(k)!==-1)s+=k.length>3?2:1});return s}
 document.getElementById("form").onsubmit=function(e){

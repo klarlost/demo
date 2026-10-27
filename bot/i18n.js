@@ -163,7 +163,7 @@ $("#eyebrow").textContent=T.eyebrow+(isDefault?T.generic:D.label)+(WA?" · Whats
 var ul=$("#benefits");ul.innerHTML="";D.benefits.forEach(function(b){var li=document.createElement("li");li.textContent=t(b);ul.appendChild(li)});
 if(SAFE)stripContacts(T.credit);
 else{var cta=$(".top .cta");if(cta)cta.textContent=L==="es"?"Contactar con Jesper":"Contact Jesper";
- var c=$$(".contact a");if(c[0])c[0].textContent=(L==="es"?"Llamar ":"Call ")+"+46 76 005 83 87";if(c[1]){c[1].textContent=L==="es"?"Escribir a Jesper":"Email Jesper";c[1].href="mailto:jesper.klarlost@gmail.com?subject="+encodeURIComponent("Digital assistant for "+F)}
+ var c=$$(".contact a");if(c[0]){c[0].textContent=L==="es"?"Escribir a Jesper":"Email Jesper";c[0].href="mailto:jesper.klarlost@gmail.com?subject="+encodeURIComponent("Digital assistant for "+F)}
  var gb=$$("footer .wrap span")[1];if(gb)gb.textContent=L==="es"?"Gotemburgo, Suecia":"Gothenburg, Sweden";
  var fs=$$("footer .wrap span")[0];if(fs&&fs.firstChild)fs.firstChild.textContent=L==="es"?"Demo de ":"Demo by ";}
 
