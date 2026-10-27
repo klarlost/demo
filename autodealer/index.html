@@ -151,8 +151,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--line)}footer a:hover
       <p class="how"><strong>Hur det fungerar:</strong> Klarlöst bygger assistenten utifrån er hemsida, ert lager och era vanliga frågor. Ni bestämmer vad den får svara på – priser och bud sätts alltid av er säljare, aldrig av boten.</p>
 
       <div class="contact">
-        <a class="btn btn-primary" href="tel:+46760058387">Ring 076-005 83 87</a>
-        <a class="btn btn-ghost" href="mailto:jesper.klarlost@gmail.com?subject=Digital%20assistent%20f%C3%B6r%20Kungsbacka%20Autodealer">Mejla Jesper</a>
+        <a class="btn btn-primary" href="mailto:jesper.klarlost@gmail.com?subject=Digital%20assistent%20f%C3%B6r%20Kungsbacka%20Autodealer">Mejla Jesper</a>
       </div>
     </section>
 
@@ -172,7 +171,7 @@ footer a{text-decoration:none;border-bottom:1px solid var(--line)}footer a:hover
   </main>
 </div>
 <footer><div class="wrap">
-  <span>Demo av <a href="https://klarlost.github.io/">Klarlöst</a> · Jesper Johannesson · <a href="tel:+46760058387">076-005 83 87</a> · <a href="mailto:jesper.klarlost@gmail.com">jesper.klarlost@gmail.com</a></span>
+  <span>Demo av <a href="https://klarlost.github.io/">Klarlöst</a> · Jesper Johannesson · <a href="mailto:jesper.klarlost@gmail.com">jesper.klarlost@gmail.com</a></span>
   <span>Göteborg · Ingen koppling till Kungsbacka Autodealer AB:s riktiga system</span>
 </div></footer>
 
@@ -374,7 +373,7 @@ var RULES=[
   {kw:["lager","finns bilen","kvar","annons","bilar ni har"],fn:function(){botReply("I den riktiga assistenten läser jag direkt från ert aktuella lager och kan svara om en bil finns kvar. Vill du boka en provkörning?",function(){chips([{label:"Boka provkörning",fn:testdrive},{label:"Prata med en säljare",fn:contact}])})}},
   {kw:["hej","hallå","tjena","hejsan"],fn:function(){botReply("Hej! Vad kan jag hjälpa dig med?",menu)}},
   {kw:["tack"],fn:function(){botReply("Varsågod! Hör av dig om du undrar något mer. 😊",menu)}},
-  {kw:["klarlöst","är du en bot","robot"," ai "],fn:function(){botReply("Jag är en demo byggd av Klarlöst i Göteborg för att visa hur en digital assistent kan fungera för "+F+". Kontakta Jesper på 076-005 83 87 om du vill veta mer.",menu)}}
+  {kw:["klarlöst","är du en bot","robot"," ai "],fn:function(){botReply("Jag är en demo byggd av Klarlöst i Göteborg för att visa hur en digital assistent kan fungera för "+F+". Mejla Jesper på jesper.klarlost@gmail.com om du vill veta mer.",menu)}}
 ];
 document.getElementById("form").onsubmit=function(e){
   e.preventDefault();var inp=document.getElementById("inp");var v=clean(inp.value,300);if(!v||busy)return;inp.value="";
